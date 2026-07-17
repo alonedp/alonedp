@@ -12,14 +12,17 @@ tun:
   auto-detect-interface: true
   strict-route: true
   mtu: 1500
+  dns-hijack:
+    - any:53
 
 dns:
   enable: true
   listen: 0.0.0.0:1053
   ipv6: false
-  enhanced-mode: redir-host
+  enhanced-mode: fake-ip
   nameserver:
-    - https://dns.alidns.com/dns-query
+    - 1.1.1.1
+    - 8.8.8.8
 
 proxies:
   - name: "NetShare"
