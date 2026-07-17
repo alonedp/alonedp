@@ -1,5 +1,6 @@
 port: 7890
 socks-port: 7891
+mixed-port: 7897
 allow-lan: true
 mode: rule
 log-level: warning
@@ -7,7 +8,7 @@ geodata-mode: false
 
 tun:
   enable: true
-  stack: system
+  stack: gvisor
   auto-route: true
   auto-detect-interface: true
 
@@ -15,10 +16,11 @@ dns:
   enable: true
   listen: 0.0.0.0:1053
   ipv6: false
-  enhanced-mode: redir-host
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
   nameserver:
-    - 1.1.1.1
-    - 8.8.8.8
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
 
 proxies:
   - name: "NetShare"
@@ -30,7 +32,7 @@ proxy-groups:
   - name: "PROXY"
     type: select
     proxies:
-      - "NetShare"
+      - NetShare
 
 rules:
   - MATCH,PROXY
